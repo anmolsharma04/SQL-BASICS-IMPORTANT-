@@ -138,4 +138,193 @@ mysql> SELECT * FROM students WHERE first_name LIKE '';
 +------------+------------+-----------+------+--------+------------------+-------+----------------+
 2 rows in set (0.00 sec)
 
+mysql> select * from students;
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+| student_id | first_name | last_name | age  | gender | course           | marks | admission_date |
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+|          1 | Amit       | Sharma    |   20 | Male   | Computer Science |    85 | 2022-06-15     |
+|          2 | Sneha      | Verma     |   19 | Female | Mathematics      |    78 | 2021-08-20     |
+|          3 | Rahul      | Mehta     |   21 | Male   | Physics          |    92 | 2020-07-10     |
+|          4 | Pooja      | Singh     |   22 | Female | Chemistry        |    69 | 2019-09-05     |
+|          5 | Arjun      | Patel     |   20 | Male   | Biology          |    74 | 2023-01-25     |
+|          6 | Neha       | Yadav     |   18 | Female | Computer Science |    88 | 2022-11-30     |
+|          7 | Vikas      | Rana      |   23 | Male   | Mathematics      |    81 | 2021-04-15     |
+|          8 | Sonia      | Kapoor    |   19 | Female | Physics          |    95 | 2020-06-20     |
+|          9 | Kunal      | Mishra    |   21 | Male   | Chemistry        |    72 | 2019-12-10     |
+|         10 | Divya      | Joshi     |   20 | Female | Biology          |    90 | 2023-03-12     |
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+10 rows in set (0.01 sec)
+
+mysql> select avg(marks) as avg_female_marks from students where
+    -> gender = 'female';
++------------------+
+| avg_female_marks |
++------------------+
+|          84.0000 |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from students
+    -> order by marks desc
+    -> limit 5;
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+| student_id | first_name | last_name | age  | gender | course           | marks | admission_date |
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+|          8 | Sonia      | Kapoor    |   19 | Female | Physics          |    95 | 2020-06-20     |
+|          3 | Rahul      | Mehta     |   21 | Male   | Physics          |    92 | 2020-07-10     |
+|         10 | Divya      | Joshi     |   20 | Female | Biology          |    90 | 2023-03-12     |
+|          6 | Neha       | Yadav     |   18 | Female | Computer Science |    88 | 2022-11-30     |
+|          1 | Amit       | Sharma    |   20 | Male   | Computer Science |    85 | 2022-06-15     |
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students
+    -> where age between 18 and 22;
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+| student_id | first_name | last_name | age  | gender | course           | marks | admission_date |
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+|          1 | Amit       | Sharma    |   20 | Male   | Computer Science |    85 | 2022-06-15     |
+|          2 | Sneha      | Verma     |   19 | Female | Mathematics      |    78 | 2021-08-20     |
+|          3 | Rahul      | Mehta     |   21 | Male   | Physics          |    92 | 2020-07-10     |
+|          4 | Pooja      | Singh     |   22 | Female | Chemistry        |    69 | 2019-09-05     |
+|          5 | Arjun      | Patel     |   20 | Male   | Biology          |    74 | 2023-01-25     |
+|          6 | Neha       | Yadav     |   18 | Female | Computer Science |    88 | 2022-11-30     |
+|          8 | Sonia      | Kapoor    |   19 | Female | Physics          |    95 | 2020-06-20     |
+|          9 | Kunal      | Mishra    |   21 | Male   | Chemistry        |    72 | 2019-12-10     |
+|         10 | Divya      | Joshi     |   20 | Female | Biology          |    90 | 2023-03-12     |
++------------+------------+-----------+------+--------+------------------+-------+----------------+
+9 rows in set (0.01 sec)
+
+mysql> select min(admission_date) as earliest_ad_date
+    -> from students;
++------------------+
+| earliest_ad_date |
++------------------+
+| 2019-09-05       |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select distinct course
+    -> from students;
++------------------+
+| course           |
++------------------+
+| Computer Science |
+| Mathematics      |
+| Physics          |
+| Chemistry        |
+| Biology          |
++------------------+
+5 rows in set (0.01 sec)
+
+mysql> select course from students;
++------------------+
+| course           |
++------------------+
+| Computer Science |
+| Mathematics      |
+| Physics          |
+| Chemistry        |
+| Biology          |
+| Computer Science |
+| Mathematics      |
+| Physics          |
+| Chemistry        |
+| Biology          |
++------------------+
+10 rows in set (0.00 sec)
+
+mysql> select distinct age from students;
++------+
+| age  |
++------+
+|   20 |
+|   19 |
+|   21 |
+|   22 |
+|   18 |
+|   23 |
++------+
+6 rows in set (0.01 sec)
+
+mysql> select first_name , last_name , marks
+    -> from students
+    -> order by last_name asc;
++------------+-----------+-------+
+| first_name | last_name | marks |
++------------+-----------+-------+
+| Divya      | Joshi     |    90 |
+| Sonia      | Kapoor    |    95 |
+| Rahul      | Mehta     |    92 |
+| Kunal      | Mishra    |    72 |
+| Arjun      | Patel     |    74 |
+| Vikas      | Rana      |    81 |
+| Amit       | Sharma    |    85 |
+| Pooja      | Singh     |    69 |
+| Sneha      | Verma     |    78 |
+| Neha       | Yadav     |    88 |
++------------+-----------+-------+
+10 rows in set (0.01 sec)
+
+mysql> select first_name from students
+    -> where marks > avg(marks);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select first_name from students
+    -> where marks > (select avg(marks) from students);
++------------+
+| first_name |
++------------+
+| Amit       |
+| Rahul      |
+| Neha       |
+| Sonia      |
+| Divya      |
++------------+
+5 rows in set (0.00 sec)
+
+mysql> select first_name from students
+    ->
+    -> ;
++------------+
+| first_name |
++------------+
+| Amit       |
+| Sneha      |
+| Rahul      |
+| Pooja      |
+| Arjun      |
+| Neha       |
+| Vikas      |
+| Sonia      |
+| Kunal      |
+| Divya      |
++------------+
+10 rows in set (0.00 sec)
+
+mysql> select first_name from students s1
+    -> where marks = (select max(marks) from students s2)
+    -> ;
++------------+
+| first_name |
++------------+
+| Sonia      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select first_name from students s1
+    -> where marks = (select max(marks) from students s2
+    -> where s1.course = s2.course);
++------------+
+| first_name |
++------------+
+| Neha       |
+| Vikas      |
+| Sonia      |
+| Kunal      |
+| Divya      |
++------------+
+5 rows in set (0.00 sec)
+
+mysql>
+
 mysql> ^A
