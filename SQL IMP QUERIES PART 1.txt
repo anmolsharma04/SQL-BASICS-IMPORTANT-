@@ -328,3 +328,338 @@ mysql> select first_name from students s1
 mysql>
 
 mysql> ^A
+#queries on the basis of new data
+
+
+
+mysql> -- Create the table
+mysql> CREATE TABLE employees (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     age INT,
+    ->     department VARCHAR(50),
+    ->     salary FLOAT
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql>
+mysql> -- Insert 20 sample entries
+mysql> INSERT INTO employees (name, age, department, salary) VALUES
+    -> ('Anmol Sharma', 24, 'Data Engineering', 65000.50),
+    -> ('Priya Singh', 28, 'HR', 48000.00),
+    -> ('Rahul Verma', 30, 'IT', 72000.25),
+    -> ('Sneha Joshi', 26, 'Finance', 53000.75),
+    -> ('Karan Mehta', 27, 'Marketing', 60000.00),
+    -> ('Neha Gupta', 25, 'IT', 71000.00),
+    -> ('Ravi Kumar', 29, 'Sales', 55000.50),
+    -> ('Simran Kaur', 23, 'Support', 40000.00),
+    -> ('Arjun Roy', 32, 'Product', 85000.00),
+    -> ('Deepika Nair', 31, 'Design', 75000.25),
+    -> ('Vikram Das', 34, 'Operations', 64000.00),
+    -> ('Megha Rathi', 22, 'Intern', 20000.00),
+    -> ('Amit Jain', 28, 'Legal', 67000.00),
+    -> ('Ishita Dey', 24, 'QA', 52000.50),
+    -> ('Rajesh Pillai', 35, 'IT', 78000.75),
+    -> ('Tanya Bansal', 30, 'Data Science', 90000.00),
+    -> ('Mohit Rana', 27, 'HR', 49000.00),
+    -> ('Ruchi Saxena', 26, 'Sales', 56000.50),
+    -> ('Saurabh Malhotra', 33, 'Marketing', 62000.00),
+    -> ('Pooja Thakur', 29, 'Support', 43000.25);
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++----+------------------+------+------------------+---------+
+| id | name             | age  | department       | salary  |
++----+------------------+------+------------------+---------+
+|  1 | Anmol Sharma     |   24 | Data Engineering | 65000.5 |
+|  2 | Priya Singh      |   28 | HR               |   48000 |
+|  3 | Rahul Verma      |   30 | IT               | 72000.2 |
+|  4 | Sneha Joshi      |   26 | Finance          | 53000.8 |
+|  5 | Karan Mehta      |   27 | Marketing        |   60000 |
+|  6 | Neha Gupta       |   25 | IT               |   71000 |
+|  7 | Ravi Kumar       |   29 | Sales            | 55000.5 |
+|  8 | Simran Kaur      |   23 | Support          |   40000 |
+|  9 | Arjun Roy        |   32 | Product          |   85000 |
+| 10 | Deepika Nair     |   31 | Design           | 75000.2 |
+| 11 | Vikram Das       |   34 | Operations       |   64000 |
+| 12 | Megha Rathi      |   22 | Intern           |   20000 |
+| 13 | Amit Jain        |   28 | Legal            |   67000 |
+| 14 | Ishita Dey       |   24 | QA               | 52000.5 |
+| 15 | Rajesh Pillai    |   35 | IT               | 78000.8 |
+| 16 | Tanya Bansal     |   30 | Data Science     |   90000 |
+| 17 | Mohit Rana       |   27 | HR               |   49000 |
+| 18 | Ruchi Saxena     |   26 | Sales            | 56000.5 |
+| 19 | Saurabh Malhotra |   33 | Marketing        |   62000 |
+| 20 | Pooja Thakur     |   29 | Support          | 43000.2 |
++----+------------------+------+------------------+---------+
+20 rows in set (0.00 sec)
+
+mysql> select * from employees where salary>60000;
++----+------------------+------+------------------+---------+
+| id | name             | age  | department       | salary  |
++----+------------------+------+------------------+---------+
+|  1 | Anmol Sharma     |   24 | Data Engineering | 65000.5 |
+|  3 | Rahul Verma      |   30 | IT               | 72000.2 |
+|  6 | Neha Gupta       |   25 | IT               |   71000 |
+|  9 | Arjun Roy        |   32 | Product          |   85000 |
+| 10 | Deepika Nair     |   31 | Design           | 75000.2 |
+| 11 | Vikram Das       |   34 | Operations       |   64000 |
+| 13 | Amit Jain        |   28 | Legal            |   67000 |
+| 15 | Rajesh Pillai    |   35 | IT               | 78000.8 |
+| 16 | Tanya Bansal     |   30 | Data Science     |   90000 |
+| 19 | Saurabh Malhotra |   33 | Marketing        |   62000 |
++----+------------------+------+------------------+---------+
+10 rows in set (0.01 sec)
+
+mysql> select department count(*) as total_employees
+    -> from employees
+    -> froup by department;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count(*) as total_employees
+from employees
+froup by department' at line 1
+mysql> select department, count(*) as total_employees
+    -> from employees
+    -> group by department;
++------------------+-----------------+
+| department       | total_employees |
++------------------+-----------------+
+| Data Engineering |               1 |
+| HR               |               2 |
+| IT               |               3 |
+| Finance          |               1 |
+| Marketing        |               2 |
+| Sales            |               2 |
+| Support          |               2 |
+| Product          |               1 |
+| Design           |               1 |
+| Operations       |               1 |
+| Intern           |               1 |
+| Legal            |               1 |
+| QA               |               1 |
+| Data Science     |               1 |
++------------------+-----------------+
+14 rows in set (0.02 sec)
+
+mysql> select * from employees
+    -> order by salary desc;
++----+------------------+------+------------------+---------+
+| id | name             | age  | department       | salary  |
++----+------------------+------+------------------+---------+
+| 16 | Tanya Bansal     |   30 | Data Science     |   90000 |
+|  9 | Arjun Roy        |   32 | Product          |   85000 |
+| 15 | Rajesh Pillai    |   35 | IT               | 78000.8 |
+| 10 | Deepika Nair     |   31 | Design           | 75000.2 |
+|  3 | Rahul Verma      |   30 | IT               | 72000.2 |
+|  6 | Neha Gupta       |   25 | IT               |   71000 |
+| 13 | Amit Jain        |   28 | Legal            |   67000 |
+|  1 | Anmol Sharma     |   24 | Data Engineering | 65000.5 |
+| 11 | Vikram Das       |   34 | Operations       |   64000 |
+| 19 | Saurabh Malhotra |   33 | Marketing        |   62000 |
+|  5 | Karan Mehta      |   27 | Marketing        |   60000 |
+| 18 | Ruchi Saxena     |   26 | Sales            | 56000.5 |
+|  7 | Ravi Kumar       |   29 | Sales            | 55000.5 |
+|  4 | Sneha Joshi      |   26 | Finance          | 53000.8 |
+| 14 | Ishita Dey       |   24 | QA               | 52000.5 |
+| 17 | Mohit Rana       |   27 | HR               |   49000 |
+|  2 | Priya Singh      |   28 | HR               |   48000 |
+| 20 | Pooja Thakur     |   29 | Support          | 43000.2 |
+|  8 | Simran Kaur      |   23 | Support          |   40000 |
+| 12 | Megha Rathi      |   22 | Intern           |   20000 |
++----+------------------+------+------------------+---------+
+20 rows in set (0.00 sec)
+
+mysql> select avg(salary) as average_salary
+    -> drom employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drom employees' at line 2
+mysql> select avg(salary) as average_salary
+    -> from employees;
++----------------+
+| average_salary |
++----------------+
+|     60250.2125 |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees
+    -> order by salary desc
+    -> limit 1;
++----+--------------+------+--------------+--------+
+| id | name         | age  | department   | salary |
++----+--------------+------+--------------+--------+
+| 16 | Tanya Bansal |   30 | Data Science |  90000 |
++----+--------------+------+--------------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees
+    -> where department
+    -> in ('sales' , 'marketting');
++----+--------------+------+------------+---------+
+| id | name         | age  | department | salary  |
++----+--------------+------+------------+---------+
+|  7 | Ravi Kumar   |   29 | Sales      | 55000.5 |
+| 18 | Ruchi Saxena |   26 | Sales      | 56000.5 |
++----+--------------+------+------------+---------+
+2 rows in set (0.03 sec)
+
+mysql> select name
+    -> from employees
+    -> order by salary desc;
++------------------+
+| name             |
++------------------+
+| Tanya Bansal     |
+| Arjun Roy        |
+| Rajesh Pillai    |
+| Deepika Nair     |
+| Rahul Verma      |
+| Neha Gupta       |
+| Amit Jain        |
+| Anmol Sharma     |
+| Vikram Das       |
+| Saurabh Malhotra |
+| Karan Mehta      |
+| Ruchi Saxena     |
+| Ravi Kumar       |
+| Sneha Joshi      |
+| Ishita Dey       |
+| Mohit Rana       |
+| Priya Singh      |
+| Pooja Thakur     |
+| Simran Kaur      |
+| Megha Rathi      |
++------------------+
+20 rows in set (0.01 sec)
+
+mysql> select avg(salary) as average_salary
+    -> from employees;
++----------------+
+| average_salary |
++----------------+
+|     60250.2125 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as total_employees
+    -> from employees;
++-----------------+
+| total_employees |
++-----------------+
+|              20 |
++-----------------+
+1 row in set (0.03 sec)
+
+mysql> select count(*) as total_employees
+    -> from employees
+    -> group by department;
++-----------------+
+| total_employees |
++-----------------+
+|               1 |
+|               2 |
+|               3 |
+|               1 |
+|               2 |
+|               2 |
+|               2 |
+|               1 |
+|               1 |
+|               1 |
+|               1 |
+|               1 |
+|               1 |
+|               1 |
++-----------------+
+14 rows in set (0.00 sec)
+
+mysql> select name ,count(*) as total_employees
+    -> from employees
+    -> group by department;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'new.employees.name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select name , salary  from employees
+    -> order by salary desc
+    -> limit(1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(1)' at line 3
+mysql> select name , salary  from employees
+    -> order by salary desc;
++------------------+---------+
+| name             | salary  |
++------------------+---------+
+| Tanya Bansal     |   90000 |
+| Arjun Roy        |   85000 |
+| Rajesh Pillai    | 78000.8 |
+| Deepika Nair     | 75000.2 |
+| Rahul Verma      | 72000.2 |
+| Neha Gupta       |   71000 |
+| Amit Jain        |   67000 |
+| Anmol Sharma     | 65000.5 |
+| Vikram Das       |   64000 |
+| Saurabh Malhotra |   62000 |
+| Karan Mehta      |   60000 |
+| Ruchi Saxena     | 56000.5 |
+| Ravi Kumar       | 55000.5 |
+| Sneha Joshi      | 53000.8 |
+| Ishita Dey       | 52000.5 |
+| Mohit Rana       |   49000 |
+| Priya Singh      |   48000 |
+| Pooja Thakur     | 43000.2 |
+| Simran Kaur      |   40000 |
+| Megha Rathi      |   20000 |
++------------------+---------+
+20 rows in set (0.00 sec)
+
+mysql> select name,max(salary) from employees;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'new.employees.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(salary) from employees;
++-------------+
+| max(salary) |
++-------------+
+|       90000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary),name from employees;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'new.employees.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select distinct name , salary
+    -> from employees
+    -> order by salary desc
+    -> limit 1 offset 1;
++-----------+--------+
+| name      | salary |
++-----------+--------+
+| Arjun Roy |  85000 |
++-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select department , count(*) as total_salaries
+    -> from employees
+    -> group by salary;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'new.employees.department' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select department , sum(salary) as total_salary
+    -> from salaries
+    -> group by department;
+ERROR 1146 (42S02): Table 'new.salaries' doesn't exist
+mysql> select department , sum(salary) as total_salary
+    -> from employees
+    -> group by department;
++------------------+--------------+
+| department       | total_salary |
++------------------+--------------+
+| Data Engineering |      65000.5 |
+| HR               |        97000 |
+| IT               |       221001 |
+| Finance          |     53000.75 |
+| Marketing        |       122000 |
+| Sales            |       111001 |
+| Support          |     83000.25 |
+| Product          |        85000 |
+| Design           |     75000.25 |
+| Operations       |        64000 |
+| Intern           |        20000 |
+| Legal            |        67000 |
+| QA               |      52000.5 |
+| Data Science     |        90000 |
++------------------+--------------+
+14 rows in set (0.00 sec)
+
+mysql>
